@@ -16,8 +16,6 @@
 
 package com.mining.app.zxing.decoding;
 
-import java.util.Vector;
-
 import android.app.Activity;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -33,6 +31,8 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.Result;
 import com.mining.app.zxing.camera.CameraManager;
 import com.mining.app.zxing.view.ViewfinderResultPointCallback;
+
+import java.util.Vector;
 
 /**
  * This class handles all the messaging which comprises the state machine for capture.
@@ -52,10 +52,10 @@ public final class CaptureActivityHandler extends Handler {
   }
 
   public CaptureActivityHandler(MipcaActivityCapture activity, Vector<BarcodeFormat> decodeFormats,
-      String characterSet) {
+                                String characterSet) {
     this.activity = activity;
     decodeThread = new DecodeThread(activity, decodeFormats, characterSet,
-        new ViewfinderResultPointCallback(activity.getViewfinderView()));
+            new ViewfinderResultPointCallback(activity.getViewfinderView()));
     decodeThread.start();
     state = State.SUCCESS;
     // Start ourselves capturing previews and decoding.
@@ -82,12 +82,12 @@ public final class CaptureActivityHandler extends Handler {
         Log.d(TAG, "Got decode succeeded message");
         state = State.SUCCESS;
         Bundle bundle = message.getData();
-        
+
         /***********************************************************************/
         Bitmap barcode = bundle == null ? null :
-            (Bitmap) bundle.getParcelable(DecodeThread.BARCODE_BITMAP);//���ñ����߳�
-        
-        activity.handleDecode((Result) message.obj, barcode);//���ؽ��?        /***********************************************************************/
+                (Bitmap) bundle.getParcelable(DecodeThread.BARCODE_BITMAP);//占쏙옙占시깍옙占쏙옙占쌩놂옙
+
+        activity.handleDecode((Result) message.obj, barcode);//占쏙옙占쌔쏙옙占?        /***********************************************************************/
         break;
       case R.id.decode_failed:
         // We're decoding as fast as possible, so when one decode fails, start another.

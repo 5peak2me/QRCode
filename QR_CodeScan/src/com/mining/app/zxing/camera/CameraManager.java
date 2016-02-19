@@ -16,8 +16,6 @@
 
 package com.mining.app.zxing.camera;
 
-import java.io.IOException;
-
 import android.content.Context;
 import android.graphics.PixelFormat;
 import android.graphics.Point;
@@ -27,6 +25,8 @@ import android.os.Build;
 import android.os.Handler;
 import android.util.Log;
 import android.view.SurfaceHolder;
+
+import java.io.IOException;
 
 /**
  * This object wraps the Camera service object and expects to be the only one talking to it. The
@@ -131,7 +131,6 @@ public final class CameraManager {
 
       //FIXME
  //     SharedPreferences prefs = PreferenceManager.getDefaultSharedPreferences(context);
-      //是否使用前灯
 //      if (prefs.getBoolean(PreferencesActivity.KEY_FRONT_LIGHT, false)) {
 //        FlashlightManager.enableFlashlight();
 //      }

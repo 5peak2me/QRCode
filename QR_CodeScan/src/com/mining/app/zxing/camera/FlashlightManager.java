@@ -54,7 +54,7 @@ final class FlashlightManager {
   }
 
   /**
-   * ¿ØÖÆÏà»úÉÁ¹âµÆ¿ª¹Ø
+   * æ§åˆ¶ç›¸æœºé—ªå…‰ç¯å¼€å…³
    */
   //FIXME
   static void enableFlashlight() {

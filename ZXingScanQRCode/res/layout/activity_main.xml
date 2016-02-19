@@ -7,19 +7,19 @@
     <EditText
         android:id="@+id/et"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:hint="请输入要生成的字符" />
 
     <Button
         android:id="@+id/btn1"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="生成" />
 
     <Button
         android:id="@+id/btn2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_height="48dp"
         android:text="扫描" />
 
     <ImageView

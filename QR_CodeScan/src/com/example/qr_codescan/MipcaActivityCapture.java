@@ -1,9 +1,5 @@
 package com.example.qr_codescan;
 
-import java.io.IOException;
-import java.util.Hashtable;
-import java.util.Vector;
-
 import android.app.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
@@ -16,7 +12,6 @@ import android.media.MediaPlayer;
 import android.media.MediaPlayer.OnCompletionListener;
 import android.os.Bundle;
 import android.os.Handler;
-import android.os.Looper;
 import android.os.Message;
 import android.os.Vibrator;
 import android.provider.MediaStore;
@@ -43,6 +38,10 @@ import com.mining.app.zxing.decoding.CaptureActivityHandler;
 import com.mining.app.zxing.decoding.InactivityTimer;
 import com.mining.app.zxing.decoding.RGBLuminanceSource;
 import com.mining.app.zxing.view.ViewfinderView;
+
+import java.io.IOException;
+import java.util.Hashtable;
+import java.util.Vector;
 public class MipcaActivityCapture extends Activity implements Callback , View.OnClickListener{
 
 	private CaptureActivityHandler handler;
@@ -55,8 +54,8 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 	private boolean playBeep;
 	private static final float BEEP_VOLUME = 0.10f;
 	private boolean vibrate;
-	
-	
+
+
 	private static final int REQUEST_CODE = 100;
 	private static final int PARSE_BARCODE_SUC = 300;
 	private static final int PARSE_BARCODE_FAIL = 303;
@@ -72,99 +71,99 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 		//ViewUtil.addTopView(getApplicationContext(), this, R.string.scan_card);
 		CameraManager.init(getApplication());
 		viewfinderView = (ViewfinderView) findViewById(R.id.viewfinder_view);
-		
+
 		Button mButtonBack = (Button) findViewById(R.id.button_back);
 		mButtonBack.setOnClickListener(this);
 		hasSurface = false;
 		inactivityTimer = new InactivityTimer(this);
-		
+
 		ImageButton mImageButton = (ImageButton) findViewById(R.id.button_function);
 		mImageButton.setOnClickListener(this);
 	}
-	
-	
+
+
 	@Override
 	public void onClick(View v) {
 		switch(v.getId()){
-		case R.id.button_back:
-			this.finish();
-			break;
-		case R.id.button_function:
-			//´ò¿ªÊÖ»úÖĞµÄÏà²á
-			Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT); //"android.intent.action.GET_CONTENT"
-	        innerIntent.setType("image/*");
-	        Intent wrapperIntent = Intent.createChooser(innerIntent, "Ñ¡Ôñ¶şÎ¬ÂëÍ¼Æ¬");
-	        this.startActivityForResult(wrapperIntent, REQUEST_CODE);
-			break;
+			case R.id.button_back:
+				this.finish();
+				break;
+			case R.id.button_function:
+				//æ‰“å¼€æ‰‹æœºä¸­çš„ç›¸å†Œ
+				Intent innerIntent = new Intent(Intent.ACTION_GET_CONTENT); //"android.intent.action.GET_CONTENT"
+				innerIntent.setType("image/*");
+				Intent wrapperIntent = Intent.createChooser(innerIntent, "é€‰æ‹©äºŒç»´ç å›¾ç‰‡");
+				this.startActivityForResult(wrapperIntent, REQUEST_CODE);
+				break;
 		}
 	}
-	
-	
+
+
 	private Handler mHandler = new Handler(){
 
 		@Override
 		public void handleMessage(Message msg) {
 			super.handleMessage(msg);
-			
+
 			mProgress.dismiss();
 			switch (msg.what) {
-			case PARSE_BARCODE_SUC:
-				onResultHandler((String)msg.obj, scanBitmap);
-				break;
-			case PARSE_BARCODE_FAIL:
-				Toast.makeText(MipcaActivityCapture.this, (String)msg.obj, Toast.LENGTH_LONG).show();
-				break;
+				case PARSE_BARCODE_SUC:
+					onResultHandler((String)msg.obj, scanBitmap);
+					break;
+				case PARSE_BARCODE_FAIL:
+					Toast.makeText(MipcaActivityCapture.this, (String)msg.obj, Toast.LENGTH_LONG).show();
+					break;
 
 			}
 		}
-		
+
 	};
-	
+
 
 	@Override
 	protected void onActivityResult(int requestCode, int resultCode, Intent data) {
 		super.onActivityResult(requestCode, resultCode, data);
 		if(resultCode == RESULT_OK){
 			switch(requestCode){
-			case REQUEST_CODE:
-				//»ñÈ¡Ñ¡ÖĞÍ¼Æ¬µÄÂ·¾¶
-				Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
-				if (cursor.moveToFirst()) {
-					photo_path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-				}
-				cursor.close();
-				
-				mProgress = new ProgressDialog(MipcaActivityCapture.this);
-				mProgress.setMessage("ÕıÔÚÉ¨Ãè...");
-				mProgress.setCancelable(false);
-				mProgress.show();
-				
-				new Thread(new Runnable() {
-					@Override
-					public void run() {
-						Result result = scanningImage(photo_path);
-						if (result != null) {
-							Message m = mHandler.obtainMessage();
-							m.what = PARSE_BARCODE_SUC;
-							m.obj = result.getText();
-							mHandler.sendMessage(m);
-						} else {
-							Message m = mHandler.obtainMessage();
-							m.what = PARSE_BARCODE_FAIL;
-							m.obj = "Scan failed!";
-							mHandler.sendMessage(m);
-						}
+				case REQUEST_CODE:
+					//è·å–é€‰ä¸­å›¾ç‰‡çš„è·¯å¾„
+					Cursor cursor = getContentResolver().query(data.getData(), null, null, null, null);
+					if (cursor.moveToFirst()) {
+						photo_path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
 					}
-				}).start();
-				
-				break;
-			
+					cursor.close();
+
+					mProgress = new ProgressDialog(MipcaActivityCapture.this);
+					mProgress.setMessage("æ­£åœ¨æ‰«æ...");
+					mProgress.setCancelable(false);
+					mProgress.show();
+
+					new Thread(new Runnable() {
+						@Override
+						public void run() {
+							Result result = scanningImage(photo_path);
+							if (result != null) {
+								Message m = mHandler.obtainMessage();
+								m.what = PARSE_BARCODE_SUC;
+								m.obj = result.getText();
+								mHandler.sendMessage(m);
+							} else {
+								Message m = mHandler.obtainMessage();
+								m.what = PARSE_BARCODE_FAIL;
+								m.obj = "Scan failed!";
+								mHandler.sendMessage(m);
+							}
+						}
+					}).start();
+
+					break;
+
 			}
 		}
 	}
-	
+
 	/**
-	 * É¨Ãè¶şÎ¬ÂëÍ¼Æ¬µÄ·½·¨
+	 * æ‰«æäºŒç»´ç å›¾ç‰‡çš„æ–¹æ³•
 	 * @param path
 	 * @return
 	 */
@@ -173,12 +172,12 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 			return null;
 		}
 		Hashtable<DecodeHintType, String> hints = new Hashtable<DecodeHintType, String>();
-		hints.put(DecodeHintType.CHARACTER_SET, "UTF8"); //ÉèÖÃ¶şÎ¬ÂëÄÚÈİµÄ±àÂë
+		hints.put(DecodeHintType.CHARACTER_SET, "UTF8"); //è®¾ç½®äºŒç»´ç å†…å®¹çš„ç¼–ç 
 
 		BitmapFactory.Options options = new BitmapFactory.Options();
-		options.inJustDecodeBounds = true; // ÏÈ»ñÈ¡Ô­´óĞ¡
+		options.inJustDecodeBounds = true; // å…ˆè·å–åŸå¤§å°
 		scanBitmap = BitmapFactory.decodeFile(path, options);
-		options.inJustDecodeBounds = false; // »ñÈ¡ĞÂµÄ´óĞ¡
+		options.inJustDecodeBounds = false; // è·å–æ–°çš„å¤§å°
 		int sampleSize = (int) (options.outHeight / (float) 200);
 		if (sampleSize <= 0)
 			sampleSize = 1;
@@ -222,7 +221,7 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 		}
 		initBeepSound();
 		vibrate = true;
-		
+
 	}
 
 	@Override
@@ -240,9 +239,9 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 		inactivityTimer.shutdown();
 		super.onDestroy();
 	}
-	
+
 	/**
-	 * ´¦ÀíÉ¨Ãè½á¹û
+	 * å¤„ç†æ‰«æç»“æœ
 	 * @param result
 	 * @param barcode
 	 */
@@ -252,9 +251,9 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 		String resultString = result.getText();
 		onResultHandler(resultString, barcode);
 	}
-	
+
 	/**
-	 * Ìø×ªµ½ÉÏÒ»¸öÒ³Ãæ
+	 * è·³è½¬åˆ°ä¸Šä¸€ä¸ªé¡µé¢
 	 * @param resultString
 	 * @param bitmap
 	 */
@@ -271,7 +270,7 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 		this.setResult(RESULT_OK, resultIntent);
 		MipcaActivityCapture.this.finish();
 	}
-	
+
 	private void initCamera(SurfaceHolder surfaceHolder) {
 		try {
 			CameraManager.get().openDriver(surfaceHolder);
@@ -288,7 +287,7 @@ public class MipcaActivityCapture extends Activity implements Callback , View.On
 
 	@Override
 	public void surfaceChanged(SurfaceHolder holder, int format, int width,
-			int height) {
+							   int height) {
 
 	}
 

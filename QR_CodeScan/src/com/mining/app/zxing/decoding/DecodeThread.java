@@ -16,10 +16,6 @@
 
 package com.mining.app.zxing.decoding;
 
-import java.util.Hashtable;
-import java.util.Vector;
-import java.util.concurrent.CountDownLatch;
-
 import android.os.Handler;
 import android.os.Looper;
 
@@ -28,9 +24,13 @@ import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.ResultPointCallback;
 
+import java.util.Hashtable;
+import java.util.Vector;
+import java.util.concurrent.CountDownLatch;
+
 /**
  * This thread does all the heavy lifting of decoding the images.
- * Ω‚¬Îœﬂ≥Ã
+ * Ëß£Á†ÅÁ∫øÁ®ã
  */
 final class DecodeThread extends Thread {
 
@@ -51,12 +51,12 @@ final class DecodeThread extends Thread {
     hints = new Hashtable<DecodeHintType, Object>(3);
 
     if (decodeFormats == null || decodeFormats.isEmpty()) {
-    	 decodeFormats = new Vector<BarcodeFormat>();
-    	 decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
-    	 decodeFormats.addAll(DecodeFormatManager.QR_CODE_FORMATS);
-    	 decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
+      decodeFormats = new Vector<BarcodeFormat>();
+      decodeFormats.addAll(DecodeFormatManager.ONE_D_FORMATS);
+      decodeFormats.addAll(DecodeFormatManager.QR_CODE_FORMATS);
+      decodeFormats.addAll(DecodeFormatManager.DATA_MATRIX_FORMATS);
     }
-    
+
     hints.put(DecodeHintType.POSSIBLE_FORMATS, decodeFormats);
 
     if (characterSet != null) {

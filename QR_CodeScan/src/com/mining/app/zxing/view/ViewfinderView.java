@@ -16,9 +16,6 @@
 
 package com.mining.app.zxing.view;
 
-import java.util.Collection;
-import java.util.HashSet;
-
 import android.content.Context;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
@@ -35,89 +32,92 @@ import com.example.qr_codescan.R;
 import com.google.zxing.ResultPoint;
 import com.mining.app.zxing.camera.CameraManager;
 
+import java.util.Collection;
+import java.util.HashSet;
+
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder
  * rectangle and partial transparency outside it, as well as the laser scanner
  * animation and result points.
- * 
+ *
  */
 public final class ViewfinderView extends View {
 	/**
-	 * Ë¢ĞÂ½çÃæµÄÊ±¼ä
+	 * åˆ·æ–°ç•Œé¢çš„æ—¶é—´
 	 */
 	private static final long ANIMATION_DELAY = 10L;
 	private static final int OPAQUE = 0xFF;
 
 	/**
-	 * ËÄ¸öÂÌÉ«±ß½Ç¶ÔÓ¦µÄ³¤¶È
+	 * å››ä¸ªç»¿è‰²è¾¹è§’å¯¹åº”çš„é•¿åº¦
 	 */
 	private int ScreenRate;
-	
+
 	/**
-	 * ËÄ¸öÂÌÉ«±ß½Ç¶ÔÓ¦µÄ¿í¶È
+	 * å››ä¸ªç»¿è‰²è¾¹è§’å¯¹åº”çš„å®½åº¦
 	 */
 	private static final int CORNER_WIDTH = 5;
 	/**
-	 * É¨Ãè¿òÖĞµÄÖĞ¼äÏßµÄ¿í¶È
+	 * æ‰«ææ¡†ä¸­çš„ä¸­é—´çº¿çš„å®½åº¦
 	 */
 	private static final int MIDDLE_LINE_WIDTH = 6;
-	
+
 	/**
-	 * É¨Ãè¿òÖĞµÄÖĞ¼äÏßµÄÓëÉ¨Ãè¿ò×óÓÒµÄ¼äÏ¶
+	 * æ‰«ææ¡†ä¸­çš„ä¸­é—´çº¿çš„ä¸æ‰«ææ¡†å·¦å³çš„é—´éš™
 	 */
 	private static final int MIDDLE_LINE_PADDING = 5;
-	
+
 	/**
-	 * ÖĞ¼äÄÇÌõÏßÃ¿´ÎË¢ĞÂÒÆ¶¯µÄ¾àÀë
+	 * ä¸­é—´é‚£æ¡çº¿æ¯æ¬¡åˆ·æ–°ç§»åŠ¨çš„è·ç¦»
 	 */
 	private static final int SPEEN_DISTANCE = 5;
-	
+
 	/**
-	 * ÊÖ»úµÄÆÁÄ»ÃÜ¶È
+	 * æ‰‹æœºçš„å±å¹•å¯†åº¦
 	 */
 	private static float density;
 	/**
-	 * ×ÖÌå´óĞ¡
+	 * å­—ä½“å¤§å°
 	 */
 	private static final int TEXT_SIZE = 16;
 	/**
-	 * ×ÖÌå¾àÀëÉ¨Ãè¿òÏÂÃæµÄ¾àÀë
+	 * å­—ä½“è·ç¦»æ‰«ææ¡†ä¸‹é¢çš„è·ç¦»
 	 */
 	private static final int TEXT_PADDING_TOP = 30;
-	
+
 	/**
-	 * »­±Ê¶ÔÏóµÄÒıÓÃ
+	 * ç”»ç¬”å¯¹è±¡çš„å¼•ç”¨
 	 */
 	private Paint paint;
-	
+
 	/**
-	 * ÖĞ¼ä»¬¶¯ÏßµÄ×î¶¥¶ËÎ»ÖÃ
+	 * ä¸­é—´æ»‘åŠ¨çº¿çš„æœ€é¡¶ç«¯ä½ç½®
 	 */
 	private int slideTop;
-	
+
 	/**
-	 * ÖĞ¼ä»¬¶¯ÏßµÄ×îµ×¶ËÎ»ÖÃ
+	 * ä¸­é—´æ»‘åŠ¨çº¿çš„æœ€åº•ç«¯ä½ç½®
 	 */
 	private int slideBottom;
-	
+
 	/**
-	 * ½«É¨ÃèµÄ¶şÎ¬ÂëÅÄÏÂÀ´£¬ÕâÀïÃ»ÓĞÕâ¸ö¹¦ÄÜ£¬ÔİÊ±²»¿¼ÂÇ
+	 * å°†æ‰«æçš„äºŒç»´ç æ‹ä¸‹æ¥ï¼Œè¿™é‡Œæ²¡æœ‰è¿™ä¸ªåŠŸèƒ½ï¼Œæš‚æ—¶ä¸è€ƒè™‘
 	 */
 	private Bitmap resultBitmap;
 	private final int maskColor;
 	private final int resultColor;
-	
+
 	private final int resultPointColor;
 	private Collection<ResultPoint> possibleResultPoints;
 	private Collection<ResultPoint> lastPossibleResultPoints;
 
 	boolean isFirst;
-	
+
 	public ViewfinderView(Context context, AttributeSet attrs) {
 		super(context, attrs);
-		
+
 		density = context.getResources().getDisplayMetrics().density;
-		//½«ÏñËØ×ª»»³Édp
+		//å°†åƒç´ è½¬æ¢æˆdp
 		ScreenRate = (int)(15 * density);
 
 		paint = new Paint();
@@ -131,34 +131,34 @@ public final class ViewfinderView extends View {
 
 	@Override
 	public void onDraw(Canvas canvas) {
-		//ÖĞ¼äµÄÉ¨Ãè¿ò£¬ÄãÒªĞŞ¸ÄÉ¨Ãè¿òµÄ´óĞ¡£¬È¥CameraManagerÀïÃæĞŞ¸Ä
+		//ä¸­é—´çš„æ‰«ææ¡†ï¼Œä½ è¦ä¿®æ”¹æ‰«ææ¡†çš„å¤§å°ï¼Œå»CameraManageré‡Œé¢ä¿®æ”¹
 		Rect frame = CameraManager.get().getFramingRect();
 		if (frame == null) {
 			return;
 		}
-		
-		//³õÊ¼»¯ÖĞ¼äÏß»¬¶¯µÄ×îÉÏ±ßºÍ×îÏÂ±ß
+
+		//åˆå§‹åŒ–ä¸­é—´çº¿æ»‘åŠ¨çš„æœ€ä¸Šè¾¹å’Œæœ€ä¸‹è¾¹
 		if(!isFirst){
 			isFirst = true;
 			slideTop = frame.top;
 			slideBottom = frame.bottom;
 		}
-		
-		//»ñÈ¡ÆÁÄ»µÄ¿íºÍ¸ß
+
+		//è·å–å±å¹•çš„å®½å’Œé«˜
 		int width = canvas.getWidth();
 		int height = canvas.getHeight();
 
 		paint.setColor(resultBitmap != null ? resultColor : maskColor);
-		
-		//»­³öÉ¨Ãè¿òÍâÃæµÄÒõÓ°²¿·Ö£¬¹²ËÄ¸ö²¿·Ö£¬É¨Ãè¿òµÄÉÏÃæµ½ÆÁÄ»ÉÏÃæ£¬É¨Ãè¿òµÄÏÂÃæµ½ÆÁÄ»ÏÂÃæ
-		//É¨Ãè¿òµÄ×ó±ßÃæµ½ÆÁÄ»×ó±ß£¬É¨Ãè¿òµÄÓÒ±ßµ½ÆÁÄ»ÓÒ±ß
+
+		//ç”»å‡ºæ‰«ææ¡†å¤–é¢çš„é˜´å½±éƒ¨åˆ†ï¼Œå…±å››ä¸ªéƒ¨åˆ†ï¼Œæ‰«ææ¡†çš„ä¸Šé¢åˆ°å±å¹•ä¸Šé¢ï¼Œæ‰«ææ¡†çš„ä¸‹é¢åˆ°å±å¹•ä¸‹é¢
+		//æ‰«ææ¡†çš„å·¦è¾¹é¢åˆ°å±å¹•å·¦è¾¹ï¼Œæ‰«ææ¡†çš„å³è¾¹åˆ°å±å¹•å³è¾¹
 		canvas.drawRect(0, 0, width, frame.top, paint);
 		canvas.drawRect(0, frame.top, frame.left, frame.bottom + 1, paint);
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
 				paint);
 		canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-		
-		
+
+
 
 		if (resultBitmap != null) {
 			// Draw the opaque result bitmap over the scanning rectangle
@@ -166,7 +166,7 @@ public final class ViewfinderView extends View {
 			canvas.drawBitmap(resultBitmap, frame.left, frame.top, paint);
 		} else {
 
-			//»­É¨Ãè¿ò±ßÉÏµÄ½Ç£¬×Ü¹²8¸ö²¿·Ö
+			//ç”»æ‰«ææ¡†è¾¹ä¸Šçš„è§’ï¼Œæ€»å…±8ä¸ªéƒ¨åˆ†
 			paint.setColor(Color.GREEN);
 			canvas.drawRect(frame.left, frame.top, frame.left + ScreenRate,
 					frame.top + CORNER_WIDTH, paint);
@@ -185,31 +185,31 @@ public final class ViewfinderView extends View {
 			canvas.drawRect(frame.right - CORNER_WIDTH, frame.bottom - ScreenRate,
 					frame.right, frame.bottom, paint);
 
-			
-			//»æÖÆÖĞ¼äµÄÏß,Ã¿´ÎË¢ĞÂ½çÃæ£¬ÖĞ¼äµÄÏßÍùÏÂÒÆ¶¯SPEEN_DISTANCE
-			
+
+			//ç»˜åˆ¶ä¸­é—´çš„çº¿,æ¯æ¬¡åˆ·æ–°ç•Œé¢ï¼Œä¸­é—´çš„çº¿å¾€ä¸‹ç§»åŠ¨SPEEN_DISTANCE
+
 			slideTop += SPEEN_DISTANCE;
 			if(slideTop >= frame.bottom){
 				slideTop = frame.top;
 			}
-			Rect lineRect = new Rect();  
-            lineRect.left = frame.left;  
-            lineRect.right = frame.right;  
-            lineRect.top = slideTop;  
-            lineRect.bottom = slideTop + 18;  
-            canvas.drawBitmap(((BitmapDrawable)(getResources().getDrawable(R.drawable.qrcode_scan_line))).getBitmap(), null, lineRect, paint); 
-			
-        	//»­É¨Ãè¿òÏÂÃæµÄ×Ö
-            paint.setColor(Color.WHITE);    
-            paint.setTextSize(TEXT_SIZE * density);    
-            paint.setAlpha(0x40);    
-            paint.setTypeface(Typeface.create("System", Typeface.BOLD));   
-            String text = getResources().getString(R.string.scan_text);  
-            float textWidth = paint.measureText(text);  
-              
-            canvas.drawText(text, (width - textWidth)/2, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint); 
-			
-			
+			Rect lineRect = new Rect();
+			lineRect.left = frame.left;
+			lineRect.right = frame.right;
+			lineRect.top = slideTop;
+			lineRect.bottom = slideTop + 18;
+			canvas.drawBitmap(((BitmapDrawable)(getResources().getDrawable(R.drawable.qrcode_scan_line))).getBitmap(), null, lineRect, paint);
+
+			//ç”»æ‰«ææ¡†ä¸‹é¢çš„å­—
+			paint.setColor(Color.WHITE);
+			paint.setTextSize(TEXT_SIZE * density);
+			paint.setAlpha(0x40);
+			paint.setTypeface(Typeface.create("System", Typeface.BOLD));
+			String text = getResources().getString(R.string.scan_text);
+			float textWidth = paint.measureText(text);
+
+			canvas.drawText(text, (width - textWidth)/2, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
+
+
 
 			Collection<ResultPoint> currentPossible = possibleResultPoints;
 			Collection<ResultPoint> currentLast = lastPossibleResultPoints;
@@ -234,11 +234,11 @@ public final class ViewfinderView extends View {
 				}
 			}
 
-			
-			//Ö»Ë¢ĞÂÉ¨Ãè¿òµÄÄÚÈİ£¬ÆäËûµØ·½²»Ë¢ĞÂ
+
+			//åªåˆ·æ–°æ‰«ææ¡†çš„å†…å®¹ï¼Œå…¶ä»–åœ°æ–¹ä¸åˆ·æ–°
 			postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top,
 					frame.right, frame.bottom);
-			
+
 		}
 	}
 
@@ -250,7 +250,7 @@ public final class ViewfinderView extends View {
 	/**
 	 * Draw a bitmap with the result points highlighted instead of the live
 	 * scanning display.
-	 * 
+	 *
 	 * @param barcode
 	 *            An image of the decoded barcode.
 	 */

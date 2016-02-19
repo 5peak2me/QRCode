@@ -76,9 +76,9 @@ final class CameraConfigurationManager {
     setZoom(parameters);
     //setSharpness(parameters);
     //modify here
-    
+
 //    camera.setDisplayOrientation(90);
-    //¼æÈÝ2.1
+    //Â¼Ã¦ÃˆÃ2.1
     setDisplayOrientation(camera, 90);
     camera.setParameters(parameters);
   }
@@ -117,8 +117,8 @@ final class CameraConfigurationManager {
     if (cameraResolution == null) {
       // Ensure that the camera resolution is a multiple of 8, as the screen may not be.
       cameraResolution = new Point(
-          (screenResolution.x >> 3) << 3,
-          (screenResolution.y >> 3) << 3);
+              (screenResolution.x >> 3) << 3,
+              (screenResolution.y >> 3) << 3);
     }
 
     return cameraResolution;
@@ -263,26 +263,26 @@ final class CameraConfigurationManager {
     }
   }
 
-	public static int getDesiredSharpness() {
-		return DESIRED_SHARPNESS;
-	}
-	
-	/**
-	 * compatible  1.6
-	 * @param camera
-	 * @param angle
-	 */
-	protected void setDisplayOrientation(Camera camera, int angle){  
-        Method downPolymorphic;  
-        try  
-        {  
-            downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });  
-            if (downPolymorphic != null)  
-                downPolymorphic.invoke(camera, new Object[] { angle });  
-        }  
-        catch (Exception e1)  
-        {  
-        }  
-   }  
+  public static int getDesiredSharpness() {
+    return DESIRED_SHARPNESS;
+  }
+
+  /**
+   * compatible  1.6
+   * @param camera
+   * @param angle
+   */
+  protected void setDisplayOrientation(Camera camera, int angle){
+    Method downPolymorphic;
+    try
+    {
+      downPolymorphic = camera.getClass().getMethod("setDisplayOrientation", new Class[] { int.class });
+      if (downPolymorphic != null)
+        downPolymorphic.invoke(camera, new Object[] { angle });
+    }
+    catch (Exception e1)
+    {
+    }
+  }
 
 }
