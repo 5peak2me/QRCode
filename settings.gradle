@@ -1,0 +1,3 @@
+include ':QR_CodeScan'
+include ':BarcodeScanner-master'
+include ':ZXingScanQRCode'
