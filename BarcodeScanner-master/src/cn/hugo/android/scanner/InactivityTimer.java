@@ -24,7 +24,7 @@ import android.content.IntentFilter;
 import android.os.AsyncTask;
 import android.os.BatteryManager;
 import android.util.Log;
-import cn.hugo.android.scanner.common.Runnable;
+import com.google.zxing.common.Runnable;
 
 /**
  * Finishes an activity after a period of inactivity if the device is on battery

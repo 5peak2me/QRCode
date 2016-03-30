@@ -1,10 +1,5 @@
 package cn.hugo.android.scanner;
 
-import java.io.IOException;
-import java.lang.ref.WeakReference;
-import java.util.Collection;
-import java.util.Map;
-
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.ProgressDialog;
@@ -23,16 +18,22 @@ import android.view.View;
 import android.view.Window;
 import android.view.WindowManager;
 import android.widget.Toast;
-import cn.hugo.android.scanner.camera.CameraManager;
-import cn.hugo.android.scanner.common.BitmapUtils;
-import cn.hugo.android.scanner.decode.BitmapDecoder;
-import cn.hugo.android.scanner.decode.CaptureActivityHandler;
-import cn.hugo.android.scanner.view.ViewfinderView;
 
 import com.google.zxing.BarcodeFormat;
 import com.google.zxing.DecodeHintType;
 import com.google.zxing.Result;
+import com.google.zxing.camera.CameraManager;
 import com.google.zxing.client.result.ResultParser;
+import com.google.zxing.common.BitmapUtils;
+import com.google.zxing.decode.BitmapDecoder;
+import com.google.zxing.decode.CaptureActivityHandler;
+import com.google.zxing.decode.FinishListener;
+import com.google.zxing.view.ViewfinderView;
+
+import java.io.IOException;
+import java.lang.ref.WeakReference;
+import java.util.Collection;
+import java.util.Map;
 
 /**
  * This activity opens the camera and does the actual scanning on a background

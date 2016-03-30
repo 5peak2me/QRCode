@@ -10,7 +10,7 @@
         android:layout_height="fill_parent"
         android:layout_gravity="center" />
 
-    <cn.hugo.android.scanner.view.ViewfinderView
+    <com.google.zxing.view.ViewfinderView
         android:id="@+id/capture_viewfinder_view"
         android:layout_width="fill_parent"
         android:layout_height="fill_parent"

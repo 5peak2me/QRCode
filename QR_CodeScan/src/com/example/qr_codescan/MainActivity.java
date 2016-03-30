@@ -11,6 +11,8 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.google.zxing.zxing.activity.MipcaActivityCapture;
+
 public class MainActivity extends Activity {
 	private final static int SCANNIN_GREQUEST_CODE = 1;
 	/**

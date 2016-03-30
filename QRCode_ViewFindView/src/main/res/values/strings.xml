@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">QRCode_ViewFindView</string>
+    <!--二维码扫描-->
+    <string name="capture_tips">请对准你想要识别的二维码</string>
+    <string name="category_dimensional">二维码</string>
+    <string name="capture_title">二维码扫描</string>
+</resources>

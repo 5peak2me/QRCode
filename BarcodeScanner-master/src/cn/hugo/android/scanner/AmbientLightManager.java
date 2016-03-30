@@ -23,8 +23,8 @@ import android.hardware.SensorEvent;
 import android.hardware.SensorEventListener;
 import android.hardware.SensorManager;
 import android.preference.PreferenceManager;
-import cn.hugo.android.scanner.camera.CameraManager;
-import cn.hugo.android.scanner.camera.FrontLightMode;
+import com.google.zxing.camera.CameraManager;
+import com.google.zxing.camera.FrontLightMode;
 
 /**
  * Detects ambient light and switches on the front light when very dark, and off

@@ -27,7 +27,7 @@ import android.media.MediaPlayer;
 import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.util.Log;
-import cn.hugo.android.scanner.config.Config;
+import com.google.zxing.config.Config;
 
 /**
  * Manages beeps and vibrations for {@link CaptureActivity}.

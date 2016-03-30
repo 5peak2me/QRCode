@@ -1,3 +1,6 @@
+/gradlew
+/gradlew.bat
+/.idea
 ### Android template
 # Built application files
 *.apk

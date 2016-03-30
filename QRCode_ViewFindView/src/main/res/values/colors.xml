@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#3F51B5</color>
+    <color name="colorPrimaryDark">#303F9F</color>
+    <color name="colorAccent">#FF4081</color>
+
+    <!-- 二维码页面用到 -->
+    <color name="viewfinder_frame">#60000000</color>
+    <color name="viewfinder_laser">#ffff72a0</color>
+    <color name="viewfinder_mask">#60000000</color>
+    <color name="possible_result_points">#c0ffff00</color>
+    <color name="result_view">#b0000000</color>
+    <color name="coupon_blue">#8cb2ff</color>
+    <color name="coupon_pink">#ff8cb3</color>
+    <color name="link_color">#ff6699</color>
+    <color name="coupon_yellow">#ffbf80</color>
+    <color name="coupon_gray">#cccccc</color>
+</resources>
