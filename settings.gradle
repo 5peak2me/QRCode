@@ -1,3 +1,4 @@
-include ':QR_CodeScan', ':QRCode_ViewFindView'
-include ':BarcodeScanner-master'
-include ':ZXingScanQRCode'
+include ':zxing-demo-1'
+include ':zxing-demo-2'
+include ':zxing-demo-3'
+include ':zxing-demo-4'

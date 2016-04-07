@@ -1,7 +1,7 @@
 <component name="libraryTable">
   <library name="zxing">
     <CLASSES>
-      <root url="jar://$PROJECT_DIR$/QRCode_ViewFindView/libs/zxing.jar!/" />
+      <root url="jar://$PROJECT_DIR$/zxing-demo-3/libs/zxing.jar!/" />
     </CLASSES>
     <JAVADOC />
     <SOURCES />
