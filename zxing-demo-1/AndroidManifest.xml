@@ -1,5 +1,5 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="cn.hugo.android.scanner"
+    package="cn.jinlin.zxing"
     android:versionCode="1"
     android:versionName="1.0" >
 
@@ -24,7 +24,7 @@
         android:label="@string/app_name"
         android:theme="@style/AppTheme" >
         <activity
-            android:name="cn.hugo.android.scanner.CaptureActivity"
+            android:name="com.jinlin.zxing.CaptureActivity"
             android:configChanges="orientation|keyboardHidden"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="stateAlwaysHidden" >
