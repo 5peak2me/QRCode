@@ -30,7 +30,8 @@ import com.google.zxing.config.Config;
 
 import java.io.IOException;
 
-import cn.hugo.android.scanner.R;
+import cn.jinlin.zxing.R;
+
 
 /**
  * Manages beeps and vibrations for {@link CaptureActivity}.

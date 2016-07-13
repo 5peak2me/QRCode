@@ -35,7 +35,7 @@ import java.lang.ref.WeakReference;
 import java.util.Collection;
 import java.util.Map;
 
-import cn.hugo.android.scanner.R;
+import cn.jinlin.zxing.R;
 
 /**
  * This activity opens the camera and does the actual scanning on a background

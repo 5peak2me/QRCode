@@ -27,7 +27,7 @@ import android.preference.PreferenceManager;
 import android.util.Log;
 
 import com.google.zxing.activity.CaptureActivity;
-import com.jinlin.zxing.example.R;
+import com.jinlin.zxing.R;
 
 import java.io.Closeable;
 import java.io.IOException;

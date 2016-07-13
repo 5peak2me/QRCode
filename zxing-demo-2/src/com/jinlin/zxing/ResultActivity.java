@@ -9,7 +9,6 @@ import android.widget.ImageView;
 import android.widget.LinearLayout.LayoutParams;
 import android.widget.TextView;
 
-import com.jinlin.zxing.example.R;
 import com.google.zxing.decode.DecodeThread;
 
 public class ResultActivity extends Activity {

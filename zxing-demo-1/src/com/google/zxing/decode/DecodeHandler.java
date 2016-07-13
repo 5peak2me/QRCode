@@ -35,7 +35,8 @@ import com.jinlin.zxing.CaptureActivity;
 import java.io.ByteArrayOutputStream;
 import java.util.Map;
 
-import cn.hugo.android.scanner.R;
+import cn.jinlin.zxing.R;
+
 
 final class DecodeHandler extends Handler {
 

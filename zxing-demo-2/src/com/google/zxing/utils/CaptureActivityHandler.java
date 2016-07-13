@@ -23,10 +23,10 @@ import android.os.Handler;
 import android.os.Message;
 
 import com.google.zxing.Result;
-import com.jinlin.zxing.example.R;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.camera.CameraManager;
 import com.google.zxing.decode.DecodeThread;
+import com.jinlin.zxing.R;
 
 /**
  * This class handles all the messaging which comprises the state machine for

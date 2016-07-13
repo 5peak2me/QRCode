@@ -40,7 +40,8 @@ import com.jinlin.zxing.CaptureActivity;
 import java.util.Collection;
 import java.util.Map;
 
-import cn.hugo.android.scanner.R;
+import cn.jinlin.zxing.R;
+
 
 /**
  * This class handles all the messaging which comprises the state machine for

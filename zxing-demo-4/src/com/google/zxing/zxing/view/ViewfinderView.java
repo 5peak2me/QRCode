@@ -126,7 +126,7 @@ public final class ViewfinderView extends View {
 		resultColor = resources.getColor(R.color.result_view);
 
 		resultPointColor = resources.getColor(R.color.possible_result_points);
-		possibleResultPoints = new HashSet<ResultPoint>(5);
+		possibleResultPoints = new HashSet<>(5);
 	}
 
 	@Override
@@ -157,8 +157,6 @@ public final class ViewfinderView extends View {
 		canvas.drawRect(frame.right + 1, frame.top, width, frame.bottom + 1,
 				paint);
 		canvas.drawRect(0, frame.bottom + 1, width, height, paint);
-
-
 
 		if (resultBitmap != null) {
 			// Draw the opaque result bitmap over the scanning rectangle
@@ -207,16 +205,14 @@ public final class ViewfinderView extends View {
 			String text = getResources().getString(R.string.scan_text);
 			float textWidth = paint.measureText(text);
 
-			canvas.drawText(text, (width - textWidth)/2, (float) (frame.bottom + (float)TEXT_PADDING_TOP *density), paint);
-
-
+			canvas.drawText(text, (width - textWidth)/2, frame.bottom + (float)TEXT_PADDING_TOP *density, paint);
 
 			Collection<ResultPoint> currentPossible = possibleResultPoints;
 			Collection<ResultPoint> currentLast = lastPossibleResultPoints;
 			if (currentPossible.isEmpty()) {
 				lastPossibleResultPoints = null;
 			} else {
-				possibleResultPoints = new HashSet<ResultPoint>(5);
+				possibleResultPoints = new HashSet<>(5);
 				lastPossibleResultPoints = currentPossible;
 				paint.setAlpha(OPAQUE);
 				paint.setColor(resultPointColor);
@@ -233,7 +229,6 @@ public final class ViewfinderView extends View {
 							+ point.getY(), 3.0f, paint);
 				}
 			}
-
 
 			//只刷新扫描框的内容，其他地方不刷新
 			postInvalidateDelayed(ANIMATION_DELAY, frame.left, frame.top,

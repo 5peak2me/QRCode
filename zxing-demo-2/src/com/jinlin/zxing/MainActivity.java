@@ -18,7 +18,6 @@ import com.google.zxing.MultiFormatWriter;
 import com.google.zxing.WriterException;
 import com.google.zxing.activity.CaptureActivity;
 import com.google.zxing.common.BitMatrix;
-import com.jinlin.zxing.example.R;
 
 import java.util.Hashtable;
 

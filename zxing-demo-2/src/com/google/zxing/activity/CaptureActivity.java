@@ -50,8 +50,8 @@ import com.google.zxing.utils.BeepManager;
 import com.google.zxing.utils.BitmapUtils;
 import com.google.zxing.utils.CaptureActivityHandler;
 import com.google.zxing.utils.InactivityTimer;
-import com.jinlin.zxing.example.R;
-import com.jinlin.zxing.example.ResultActivity;
+import com.jinlin.zxing.R;
+import com.jinlin.zxing.ResultActivity;
 
 import java.io.IOException;
 import java.lang.ref.WeakReference;

@@ -19,7 +19,7 @@ import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 
-import cn.hugo.android.scanner.R;
+import cn.jinlin.zxing.R;
 
 /**
  * This view is overlaid on top of the camera preview. It adds the viewfinder
